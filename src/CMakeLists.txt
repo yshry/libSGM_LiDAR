@@ -1,0 +1,56 @@
+cmake_minimum_required(VERSION 3.18)
+
+set(LIBSGM_ROOT_DIR ${PROJECT_SOURCE_DIR})
+set(LIBSGM_INCLUDE_DIR ${LIBSGM_ROOT_DIR}/include)
+
+# create project
+set(PROJECT_NAME sgm)
+project(${PROJECT_NAME} LANGUAGES CXX CUDA)
+
+# dependent packages
+find_package(CUDAToolkit REQUIRED)
+
+if(BUILD_OPENCV_WRAPPER)
+	find_package(OpenCV REQUIRED core)
+endif()
+
+# library type
+set(SGM_LIB_TYPE STATIC)
+if(LIBSGM_SHARED)
+	set(SGM_LIB_TYPE SHARED)
+endif()
+
+# target configuration
+file(GLOB SRCS ./*.cpp ./*.cu ./*.h* ${LIBSGM_INCLUDE_DIR}/*.h*)
+add_library(${PROJECT_NAME} ${SGM_LIB_TYPE})
+target_sources(${PROJECT_NAME} PRIVATE ${SRCS})
+target_include_directories(${PROJECT_NAME} PRIVATE ${LIBSGM_INCLUDE_DIR} $<$<BOOL:${BUILD_OPENCV_WRAPPER}>:${OpenCV_INCLUDE_DIRS}>)
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
+target_link_libraries(${PROJECT_NAME} PUBLIC CUDA::cudart $<$<BOOL:${BUILD_OPENCV_WRAPPER}>:${OpenCV_LIBS}>)
+set_target_properties(${PROJECT_NAME} PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${LIBSGM_INCLUDE_DIR})
+set_target_properties(${PROJECT_NAME} PROPERTIES CUDA_ARCHITECTURES ${CUDA_ARCHS})
+
+target_compile_options(${PROJECT_NAME} PRIVATE
+$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-Wall -O3>
+$<$<COMPILE_LANG_AND_ID:CXX,Clang>:-Wall -O3>
+$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/wd4819>
+$<$<COMPILE_LANGUAGE:CUDA>:-lineinfo>
+)
+
+install(
+	TARGETS ${PROJECT_NAME}
+	ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+	LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+	RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
+)
+
+install(
+	DIRECTORY ${LIBSGM_INCLUDE_DIR}
+	DESTINATION ${CMAKE_INSTALL_PREFIX}
+	FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp"
+)
+
+install(
+	FILES ${LIBSGM_ROOT_DIR}/FindLibSGM.cmake
+	DESTINATION ${CMAKE_INSTALL_PREFIX}
+)
