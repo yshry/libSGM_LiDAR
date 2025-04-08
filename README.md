@@ -1,5 +1,5 @@
 # Stereo-LiDAR Fusion by Semi-Global Matching With Discrete Disparity-Matching Cost and Semidensification
-This repository contains the code for our IEEE RA-L paper `Stereo-LiDAR Fusion by Semi-Global Matching with Discrete Disparity-Matching Cost and Semidensification` [[IEEE Xplore](https://doi.org/10.1109/LRA.2025.3552236)], [[paper](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10930562)][[arxiv](http://arxiv.org/abs/2504.05148)].
+This repository contains the code for our IEEE RA-L paper `Stereo-LiDAR Fusion by Semi-Global Matching with Discrete Disparity-Matching Cost and Semidensification` [[IEEE Xplore](https://doi.org/10.1109/LRA.2025.3552236)], [[paper](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10930562)], [[arxiv](http://arxiv.org/abs/2504.05148)].
 
 The implementation of our model part is heavily borrowed from [libSGM](https://github.com/fixstars/libSGM). 
 
