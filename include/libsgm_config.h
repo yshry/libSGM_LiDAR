@@ -8,6 +8,6 @@
 #define LIBSGM_VERSION_MINOR 
 #define LIBSGM_VERSION_PATCH 
 
-#define BUILD_OPENCV_WRAPPER
+/* #undef BUILD_OPENCV_WRAPPER */
 
 #endif // __LIBSGM_CONFIG_H__

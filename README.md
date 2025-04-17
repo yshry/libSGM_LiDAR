@@ -76,8 +76,6 @@ You can execute DSGM without semidensification using the following command.
 KITTI 141 dataset evaluated in our paper is available via [XuelianCheng/LidarStereoNet](https://github.com/XuelianCheng/LidarStereoNet/tree/master?tab=readme-ov-file#validation-dataset).
 
 ## Lisence
-This project is licensed under the MIT License, see the LICENSE.txt file for details.  
-
 This software includes the work below that is distributed under the Apache License 2.0.  
 > [libSGM](https://github.com/fixstars/libSGM)  
 > Copyright (c) Fixstars Corporation  
